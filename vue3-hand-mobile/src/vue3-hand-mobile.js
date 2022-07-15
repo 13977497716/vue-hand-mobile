@@ -1,16 +1,20 @@
 
 import './utlis/hammer.js'
+
 export default {
-    install(Vue) {
+    install(app) {
+
+       
         function data_Processing() {
             return {
                 'deltaY': 'Y',
                 'deltaX': 'X',
-                'deltaTime': 'touch_Time'
+                'deltaTime': 'touch_Time' 
             }
         }
 
 
+      
         function set_default(Obj) {
             let linObjs = {}
             let valueArr = ['deltaY', 'deltaX', 'type', 'distance', 'velocityX', 'deltaTime',
@@ -27,7 +31,7 @@ export default {
             if ((Obj.type).indexOf("rotate") != -1) {
                 valueArr.push('rotation')
             }
-
+          
             valueArr.forEach(e => {
                 linObjs[e] = Obj[e]
             })
@@ -35,25 +39,26 @@ export default {
         }
 
 
+   
         function processing(Obj) {
             Obj = set_default(Obj)
-
+      
             let keyArr = Object.keys(data_Processing())
-
+          
             let valueArr = keyArr.map((item) => {
                 return data_Processing()[item]
             })
-
+       
             let regular;
-
+           
             keyArr.forEach((e, i) => {
-
+               
                 regular = eval('/' + e + '/g');
-
+              
                 Obj = JSON.parse(JSON.stringify(Obj).replace(regular, valueArr[i]))
             })
             let direction = Obj.direction
-
+          
             switch (direction) {
                 case 1:
                     Obj.direction = 'none'
@@ -90,20 +95,25 @@ export default {
                     break
 
             }
-
+           
             return Obj 
         }
 
 
-        Vue.directive('touch', {
-            bind: function (el, binding) {
-                let type = binding.arg//触发事件名
+        app.directive('touch', {
 
-                //实例化对象
+            mounted(el, binding) {
+
+                let type = binding.arg
+
+            
                 let touch_action = new Hammer(el);
+
                 touch_action.on(type, (ev) => {
                     ev = processing(ev)
-                    //返回自定义指令值函数和形参
+                    
+                    ev.element=el
+
                     binding.value(ev)
                 });
 
@@ -116,6 +126,7 @@ export default {
 
                 touch_action.get('pan').set({ direction: Hammer.DIRECTION_ALL });
                 touch_action.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+                
             },
 
         });

@@ -1,0 +1,27 @@
+{
+  "name": "vue3-hand-mobile",
+  "title": "vue3-hand-mobile",
+  "version": "1.0.0",
+  "description": "Vue mobile gesture action event.",
+  "directories": {
+    "src": "src"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "touch",
+    "gestures",
+    "mobile",
+    "vue"
+  ],
+  "git repository:":"https://gitee.com/qnkk1221/vue-hand-mobile.git",
+  "author": {
+    "name": "kk",
+    "email": "1285515951@qq.com"
+  },
+  "license": "ISC",
+  "private": false,
+  "readmeFilename": "README.md"
+}
